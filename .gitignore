@@ -1,0 +1,7 @@
+*
+
+!.gitignore
+!Solution.h
+!Solution.cpp
+!main.cpp
+!CMakeLists.txt
