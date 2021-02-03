@@ -286,4 +286,70 @@ ListNode *Solution::addTwoNumbers(ListNode *l1, ListNode *l2) {
     return result;
 }
 
+/*
+ * 23 链表
+ * */
+ListNode* Solution::mergeKLists(vector<ListNode *> &lists) {
+    return mergeKLists(lists, 0, lists.size()-1);
+}
 
+/*
+ * 23 helper
+ * */
+ListNode* Solution::mergeKLists(vector<ListNode*> &lists, int beg, int end) {
+    if(beg==end){
+        return lists[beg];
+    }else if(beg>end){
+        return nullptr;
+    }else{
+        int mid = (beg+end)/2;
+        return mergeTwoLists(mergeKLists(lists, beg, mid), mergeKLists(lists, mid+1, end));
+    }
+}
+
+/*
+ * 23 helper
+ * */
+ListNode* Solution::mergeTwoLists(ListNode* list1, ListNode* list2) {
+    ListNode head, *tail = &head;
+    while(list1 && list2){
+        if(list1->val < list2->val){
+            tail->next = list1;
+            list1 = list1->next;
+        }else{
+            tail->next = list2;
+            list2 = list2->next;
+        }
+        tail = tail->next;
+    }
+    tail->next = list1 ? list1 : list2;
+    return head.next;
+}
+
+/*
+ * 1578 贪心算法
+ * */
+int Solution::minCost(string s, vector<int> &cost) {
+    int left=0, right=0;
+    int minCost = 0;
+    while(left<s.size()){
+        right = left + 1;
+        while(right<s.size() && s[left]==s[right]){
+            right++;
+        }
+
+        int maxCost = -1;
+        int sumCost = 0;
+        for(int i=left; i<right; i++){
+            if(cost[i]>maxCost){
+                maxCost = cost[i];
+            }
+            sumCost+=cost[i];
+        }
+
+        minCost += (sumCost-maxCost);
+
+        left = right;
+    }
+    return minCost;
+}

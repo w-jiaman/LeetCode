@@ -26,8 +26,12 @@ public:
     static int maxTurbulenceSize(vector<int>& arr);        // 978 滑动窗口
     static int distinctSubseqII(const string& S);     // 940 动态规划
     static ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);    // 2 链表
-    static void count0And1(string& str, int* result);      // 474 helper
     static ListNode* mergeKLists(vector<ListNode*>& lists);       // 23 链表
+    static int minCost(string s, vector<int>& cost);       // 1578 贪心算法
+private:
+    static void count0And1(string& str, int* result);      // 474 helper
+    static ListNode* mergeKLists(vector<ListNode*>& lists, int beg, int end);       // 23 helper
+    static ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);       // 23 helper
 };
 
 
