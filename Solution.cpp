@@ -354,6 +354,9 @@ int Solution::minCost(string s, vector<int> &cost) {
     return minCost;
 }
 
+/*
+ * 1663 贪心算法
+ * */
 string Solution::getSmallestString(int n, int k) {
     string result;
     while(n>0){
