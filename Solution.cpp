@@ -11,22 +11,6 @@
 using namespace std;
 
 /*
- * 474 helper
- * */
-void Solution::count0And1(string &str, int* result) {
-    result[0] = 0;
-    result[1] = 0;
-
-    for(char ch:str){
-        if(ch=='0'){
-            result[0]++;
-        }else if(ch=='1'){
-            result[1]++;
-        }
-    }
-}
-
-/*
  * 474 动态规划
  * */
 int Solution::findMaxForm(vector<string>& strs, int m, int n){
@@ -69,6 +53,22 @@ int Solution::findMaxForm(vector<string>& strs, int m, int n){
     }
 
     return result;
+}
+
+/*
+ * 474 helper
+ * */
+void Solution::count0And1(string &str, int* result) {
+    result[0] = 0;
+    result[1] = 0;
+
+    for(char ch:str){
+        if(ch=='0'){
+            result[0]++;
+        }else if(ch=='1'){
+            result[1]++;
+        }
+    }
 }
 
 /*
@@ -352,4 +352,19 @@ int Solution::minCost(string s, vector<int> &cost) {
         left = right;
     }
     return minCost;
+}
+
+string Solution::getSmallestString(int n, int k) {
+    string result;
+    while(n>0){
+        if(k<=(n-1)*26){
+            result += 'a';
+            k -= 1;
+        }else{
+            result += ((k-(n-1)*26)+96);
+            k = (n-1)*26;
+        }
+        n--;
+    }
+    return result;
 }

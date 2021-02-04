@@ -5,7 +5,6 @@
 using namespace std;
 
 int main() {
-    string s = "aba";
+    cout << Solution::getSmallestString(3, 27) << endl;
 
-    cout << Solution::distinctSubseqII(s) << endl;
 }
