@@ -7,6 +7,8 @@
 #include "iostream"
 #include "string"
 #include "vector"
+#include "map"
+#include "algorithm"
 
 using namespace std;
 
@@ -370,4 +372,30 @@ string Solution::getSmallestString(int n, int k) {
         n--;
     }
     return result;
+}
+
+/*
+ * 1338 贪心算法
+ * */
+int minSetSize(vector<int>& arr){
+    map<int,int> freq;
+    for(int num:arr){
+        freq[num]++;
+    }
+    vector<int> orderFreq;
+    for(map<int,int>::iterator it; it!=freq.end(); it++){
+        orderFreq.push_back(it->second);
+    }
+
+    sort(orderFreq.begin(), orderFreq.end(), greater<int>());
+
+    int count=0, answer=0;
+    for(int cnt:orderFreq){
+        count+=cnt;
+        answer+=1;
+        if (cnt * 2 >= arr.size()) {
+            break;
+        }
+    }
+    return answer;
 }

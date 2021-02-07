@@ -29,6 +29,7 @@ public:
     static ListNode* mergeKLists(vector<ListNode*>& lists);       // 23 链表
     static int minCost(string s, vector<int>& cost);       // 1578 贪心算法
     static string getSmallestString(int n, int k);      // 1663 贪心算法
+    static int minSetSize(vector<int>& arr);           // 1338 贪心算法
 private:
     static void count0And1(string& str, int* result);      // 474 helper
     static ListNode* mergeKLists(vector<ListNode*>& lists, int beg, int end);       // 23 helper
