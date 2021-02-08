@@ -12,6 +12,876 @@
 
 using namespace std;
 
+
+/*
+ * 递增快排
+ * */
+void Solution::quickSort(int *arr, int left, int right) {
+    int recordLeft = left, recordRight = right;
+    int pivot = arr[left];
+
+    while(left<right){
+        while(arr[right]>=pivot && left<right){
+            right--;
+        }
+        if(left<right){
+            arr[left] = arr[right];
+            left++;
+        }
+        while(arr[left]<=pivot && left<right){
+            left++;
+        }
+        if(left<right){
+            arr[right] = arr[left];
+            right--;
+        }
+    }
+
+    arr[left] = pivot;
+
+    if(recordLeft<left-1){
+        quickSort(arr, recordLeft, left-1);
+    }
+    if(recordRight>right+1){
+        quickSort(arr, right+1, recordRight);
+    }
+}
+void Solution::quickSort(vector<int>& arr, int left, int right) {
+    int recordLeft = left, recordRight = right;
+    int pivot = arr[left];
+
+    while(left<right){
+        while(arr[right]>=pivot && left<right){
+            right--;
+        }
+        if(left<right){
+            arr[left] = arr[right];
+            left++;
+        }
+        while(arr[left]<=pivot && left<right){
+            left++;
+        }
+        if(left<right){
+            arr[right] = arr[left];
+            right--;
+        }
+    }
+
+    arr[left] = pivot;
+
+    if(recordLeft<left-1){
+        quickSort(arr, recordLeft, left-1);
+    }
+    if(recordRight>right+1){
+        quickSort(arr, right+1, recordRight);
+    }
+}
+
+
+/*
+ * 递减快排
+ * */
+void Solution::quickSortReverse(int* arr, int left, int right) {
+    int recordLeft = left, recordRight = right;
+    int pivot = arr[left];
+
+    while(left<right){
+        while(arr[right]<=pivot && left<right){
+            right--;
+        }
+        if(left<right){
+            arr[left] = arr[right];
+            left++;
+        }
+        while(arr[left]>=pivot && left<right){
+            left++;
+        }
+        if(left<right){
+            arr[right] = arr[left];
+            right--;
+        }
+    }
+
+    arr[left] = pivot;
+
+    if(recordLeft<left-1){
+        quickSortReverse(arr, recordLeft, left-1);
+    }
+    if(recordRight>right+1){
+        quickSortReverse(arr, right+1, recordRight);
+    }
+}
+void Solution::quickSortReverse(vector<int>& arr, int left, int right) {
+    int recordLeft = left, recordRight = right;
+    int pivot = arr[left];
+
+    while(left<right){
+        while(arr[right]<=pivot && left<right){
+            right--;
+        }
+        if(left<right){
+            arr[left] = arr[right];
+            left++;
+        }
+        while(arr[left]>=pivot && left<right){
+            left++;
+        }
+        if(left<right){
+            arr[right] = arr[left];
+            right--;
+        }
+    }
+
+    arr[left] = pivot;
+
+    if(recordLeft<left-1){
+        quickSortReverse(arr, recordLeft, left-1);
+    }
+    if(recordRight>right+1){
+        quickSortReverse(arr, right+1, recordRight);
+    }
+}
+
+
+/*
+ * 1 暴力法
+ * */
+vector<int> Solution::twoSum(vector<int> &nums, int target) {
+    vector<int> answer ;
+    for(int i=0;i<nums.size();i++){
+        int num = target - nums[i];
+        for(int j=i+1;j<nums.size();j++){
+            if(nums[j]==num){
+                answer.push_back(i);
+                answer.push_back(j);
+                return answer;
+            }
+        }
+    }
+    return answer;
+}
+
+/*
+ * 27 数组操作
+ * */
+int Solution::removeElement(vector<int> &nums, int val) {
+    int pivot = nums.size() - 1;
+    for (int i = 0; i <=pivot; i++) {
+        if(nums[i]==val){
+            while(pivot>=i&&nums[pivot]==val){
+                pivot--;
+            }
+            if(pivot<i){
+                break;
+            }
+            nums[i] = nums[pivot--];
+        }
+    }
+    return pivot+1;
+}
+
+/*
+ * 16 双指针
+ * */
+int Solution::threeSumClosest(vector<int> &nums, int target) {
+    int len = nums.size();
+
+    quickSort(nums,0,len-1);
+    int result = nums[0] + nums[1] + nums[2];
+
+    for(int i=0;i<len-2;i++){
+        int start = i+1;
+        int end = len-1;
+        while(start<end){
+            int sum = nums[i] + nums[start] + nums[end];
+            if(abs(target-sum)<abs(target-result)){
+                result = sum;
+            }
+            if(sum>target){
+                end--;
+            } else if(sum<target){
+                start++;
+            } else{
+                return result;
+            }
+        }
+    }
+
+    return result;
+}
+
+/*
+ * 15 双指针
+ * */
+vector<vector<int>> Solution::threeSum(vector<int> &nums) {
+    int len = nums.size();
+    vector<vector<int>> result = vector<vector<int>>();
+
+    if(len<3){
+        return result;
+    }
+
+    quickSort(nums,0,len-1);
+
+    for(int i=0;i<len-2;i++){
+        if(i>0&&nums[i-1]==nums[i]){
+            continue;
+        }
+
+        int start = i+1;
+        int end = len-1;
+
+        while(start<end){
+            int sum = nums[i] + nums[start] + nums[end];
+            if(sum==0){
+                vector<int> vec = {nums[i],nums[start],nums[end]};
+                result.push_back(vec);
+                start++;
+                end--;
+                while(start<end&&nums[start]==nums[start-1]){
+                    start++;
+                }
+                while(start<end&&nums[end]==nums[end+1]){
+                    end--;
+                }
+            }else if(sum<0){
+                start++;
+            }else{
+                end--;
+            }
+        }
+    }
+    return result;
+}
+
+/*
+ * 17 回溯算法
+ * */
+vector<string> Solution::letterCombinations(string digits) {
+    // 使用string数组来表示数字与字母间的对应关系
+    // 通过 下标+2 来访问某个数字对应的所有字符
+    string data[8]={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+    // 获取输入的所有数字
+    vector<int> input = vector<int>();
+    for(char c:digits){
+        int number = c-48;
+        input.push_back(number);
+    }
+
+    // 声明一个长度为2的 vector<string> 数组，来缓存前一次计算的结果
+    vector<string> cache[2];
+
+    // 定义两个指针，来指示缓存中当前操作的向量
+    int current = 0;
+    int prevent = 1;
+    // 动态规划
+    for(int i=0;i<input.size();i++){
+        cache[current].clear();
+
+        // 对于输入的第i个数字
+        vector<string> vec = vector<string>();
+        if(i==0){
+            // 若为递归边界
+            for(char c:data[input[i]-2]){
+                cache[current].push_back(string("")+c);
+            }
+        }else{
+            for(const string& s:cache[prevent]){
+                for(char c:data[input[i]-2]){
+                    cache[current].push_back(s+c);
+                }
+            }
+        }
+        current = current + prevent;
+        prevent = current - prevent;
+        current = current - prevent;
+    }
+    return cache[prevent];
+}
+
+/*
+ * 6 几何
+ * */
+string Solution::convert(string s, int numRows) {
+    if(numRows==1){
+        return  s;
+    }
+
+    vector<string> rows = vector<string>(min((int)s.size(),numRows));
+    bool isGoingDown = false;
+
+    int currentRow = 0;
+    for(char c:s){
+        rows[currentRow] += c;
+        if(currentRow==0 || currentRow == numRows-1){
+            isGoingDown = !isGoingDown;
+        }
+        currentRow += isGoingDown?1:-1;
+    }
+
+    string result;
+    for(const string& str:rows){
+        result += str;
+    }
+
+    return result;
+}
+
+/*
+ * 11 双指针
+ * */
+int Solution::maxArea(vector<int> &height) {
+    int start = 0;
+    int end = height.size()-1;
+    int maxVolume = 0;
+    while (start<end){
+        if(height[start]<height[end]){
+            maxVolume = maxVolume>height[start]*(end-start)?maxVolume:height[start]*(end-start);
+            start++;
+        }else{
+            maxVolume = maxVolume>height[end]*(end-start)?maxVolume:height[end]*(end-start);
+            end--;
+        }
+    }
+    return maxVolume;
+}
+
+/*
+ * 167 数组操作
+ * */
+vector<int> Solution::twoSum2(vector<int>& numbers, int target) {
+    int start = 0;
+    int end = (int)numbers.size()-1;
+    while (start<end){
+        int sum = numbers[start] + numbers[end];
+        if(sum==target){
+            break;
+        }else if(sum>target){
+            end--;
+        }else if(sum<target){
+            start++;
+        }
+    }
+    return vector<int>(2)={start+1,end+1};
+}
+
+/*
+ * 104 深度优先搜索
+ * */
+int Solution::maxDepth(TreeNode *root) {
+    if(root== nullptr){
+        return 0;
+    }
+    return max(maxDepth(root->left),maxDepth(root->right))+1;
+}
+
+/*
+ * 867 数组操作
+ * */
+vector<vector<int>> Solution::transpose(vector<vector<int>> &A) {
+    vector<vector<int>> result = vector<vector<int>>();
+
+    for(std::size_t i=0; i<A[0].size(); i++){
+        vector<int> vec = vector<int>();
+        for(std::size_t j=0; j<A.size(); j++){
+            vec.push_back(A[j][i]);
+        }
+        result.push_back(vec);
+    }
+
+    return result;
+}
+
+/*
+ * 面试题 17.10 数组操作
+ * */
+int Solution::majorityElement(vector<int> &nums) {
+    if(nums.size()==1){
+        return nums[0];
+    }
+
+    map<int,int> Map = map<int,int>();
+
+    for(int i=0; i<nums.size(); i++){
+        auto iterator = Map.find(nums[i]);
+        if(iterator != Map.end()){
+            int times = iterator->second + 1;
+            if(times>(int)nums.size()/2){
+                return nums[i];
+            }
+            Map[nums[i]] = times;
+        }else{
+            Map[nums[i]] = 1;
+        }
+    }
+
+    return -1;
+}
+
+/*
+ * 面试题 17.21 双指针
+ * */
+int Solution::trap(vector<int> &height) {
+    if(height.size()<=2){
+        return 0;
+    }
+
+    int left=0, right=(int)height.size()-1;
+    int leftMax=height[left],rightMax=height[right];
+    int result=0;
+
+    while(left<right){
+        if(leftMax<rightMax){
+            result += (leftMax-height[left++]);
+            leftMax = max(leftMax,height[left]);
+        }else{
+            result += (rightMax-height[right--]);
+            rightMax = max(rightMax,height[right]);
+        }
+    }
+
+    return result;
+}
+
+/*
+ * 1535 数组操作
+ * */
+int Solution::getWinner(vector<int>& arr, int k){
+    int ptr=1,times=0;
+
+    while(ptr<arr.size()){
+        if(arr[0]>arr[ptr]){
+            times++;
+            ptr++;
+        }else{
+            int tmp = arr[0];
+            arr[0] = arr[ptr];
+            arr[ptr] = tmp;
+            ptr++;
+            times = 1;
+        }
+        if(times==k){
+            break;
+        }
+    }
+
+    return arr[0];
+}
+
+/*
+ * 977 排序
+ * */
+vector<int> Solution::sortedSquares(vector<int> &nums) {
+    vector<int> result = vector<int>(nums.size());
+    int* cache = new int[nums.size()];
+    int a=0,b=(int)nums.size()-1;
+
+    for(int i=0; i<nums.size(); i++){
+        cache[i] = nums[i]*nums[i];
+    }
+
+    for(int i=(int)nums.size()-1; i>=0; i--){
+        if(cache[b]>cache[a]){
+            result[i] = cache[b];
+            b--;
+        }else{
+            result[i] = cache[a];
+            a++;
+        }
+    }
+
+    return result;
+}
+
+/*
+ * 79 深度优先搜索
+ * */
+bool Solution::exist(vector<vector<char>> &board, string word) {
+    bool flag = false;
+
+    bool **visited = new bool*[board.size()];
+    for(int i=0; i<board.size(); i++){
+        visited[i] = new bool[board[0].size()];
+        for(int j=0; j<board[0].size(); j++){
+            visited[i][j] = false;
+        }
+    }
+
+    for(int i=0; i<board.size(); i++){
+        for(int j=0; j<board[0].size(); j++){
+            if(board[i][j]==word[0]){
+                visited[i][j] = true;
+                flag = existCore(board, i, j, word, 1, visited);
+            }
+            if(flag){
+                break;
+            }else{
+                visited[i][j] = false;
+            }
+        }
+        if(flag){
+            break;
+        }
+    }
+
+    return flag;
+}
+
+/*
+ * 79 helper
+ * */
+bool Solution::existCore(vector<vector<char>> &board, int i, int j, string word, int k, bool **visited) {       // 递归调用核心，将问题分解成更小规模
+    // 递归边界
+    if(k>=word.size()){
+        return true;
+    }
+
+    // 上
+    if(i>0 && !visited[i-1][j] && board[i - 1][j] == word[k]){
+        visited[i-1][j] = true;
+        if(existCore(board, i-1, j, word, k+1, visited)){
+            return true;
+        }else{
+            visited[i-1][j] = false;
+        }
+    }
+
+    // 下
+    if(i<board.size()-1 && !visited[i+1][j] && board[i + 1][j] == word[k]){
+        visited[i+1][j] = true;
+        if(existCore(board, i+1, j, word, k+1, visited)){
+            return true;
+        }else{
+            visited[i+1][j] = false;
+        }
+
+    }
+
+    // 左
+    if(j>0 && !visited[i][j-1] && board[i][j - 1] == word[k]){
+        visited[i][j-1] = true;
+        if(existCore(board, i, j-1, word, k+1, visited)){
+            return true;
+        }else{
+            visited[i][j-1] = false;
+        }
+
+    }
+
+    // 右
+    if(j<board[0].size()-1 && !visited[i][j+1] && board[i][j+1]==word[k]){
+        visited[i][j+1] = true;
+        if(existCore(board, i, j+1, word, k+1, visited)){
+            return true;
+        }else{
+            visited[i][j+1] = false;
+        }
+    }
+
+    return false;
+}
+
+/*
+ * 130 深度优先搜索
+ * */
+void Solution::solve(vector<vector<char>> &board) {
+    if(board.empty()||board.size()==1){
+        return;
+    }
+
+    bool **isAround = new bool*[board.size()];
+    for(int i=0; i<board.size(); i++){
+        isAround[i] = new bool[board[0].size()];
+        for(int j=0; j<board[0].size(); j++){
+            isAround[i][j] = true;
+        }
+    }
+
+    for(int i=0; i<board[0].size(); i++){      // 遍历第一行与最后一行
+        if(board[0][i]=='O'&&isAround[0][i]){
+            solveCore(board, 0, i, isAround);
+        }
+        if(board[board.size()-1][i]=='O'&&isAround[board.size()-1][i]){
+            solveCore(board, board.size()-1, i, isAround);
+        }
+    }
+
+    for(int i=1; i<board.size()-1; i++){      // 遍历第一列与最后一列
+        if(board[i][0]=='O'&&isAround[i][0]){
+            solveCore(board, i, 0, isAround);
+        }
+        if(board[i][board[0].size()-1]=='O'&&isAround[i][board[0].size()-1]){
+            solveCore(board, i, board[0].size()-1, isAround);
+        }
+    }
+
+    for(int i=0; i<board.size(); i++){
+        for(int j=0; j<board[0].size(); j++){
+            cout << isAround[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    for(int i=1; i<board.size()-1; i++){
+        for(int j=1; j<board[0].size()-1; j++){
+            if(board[i][j]=='O'&&isAround[i][j]){
+                board[i][j] = 'X';
+            }
+        }
+    }
+
+}
+
+/*
+ * 130 helper
+ * */
+void Solution::solveCore(vector<vector<char>> &board, int i, int j, bool** isAround) {
+
+    isAround[i][j] = false;
+
+    if(i>0 && board[i-1][j]=='O' && isAround[i-1][j]){
+        solveCore(board, i-1, j, isAround);
+    }
+
+    if(i<board.size()-1 && board[i+1][j]=='O' && isAround[i+1][j]){
+        solveCore(board, i+1, j, isAround);
+    }
+
+    if(j>0 && board[i][j-1]=='O' && isAround[i][j-1]){
+        solveCore(board, i, j-1, isAround);
+    }
+
+    if(j<board[0].size()-1 && board[i][j+1]=='O' && isAround[i][j+1]) {
+        solveCore(board, i, j+1, isAround);
+    }
+
+}
+
+/*
+ * 442 哈希算法
+ * */
+vector<int> Solution::findDuplicates(vector<int> &nums) {
+    vector<int> ret = vector<int>();
+    for(int i=0; i<nums.size(); i++){
+        if(nums[abs(nums[i])-1]<0){
+            ret.push_back(abs(nums[i]));
+        }else{
+            nums[abs(nums[i])-1] = -nums[abs(nums[i])-1];
+        }
+    }
+    return ret;
+}
+
+/*
+ * 747 暴力法
+ * */
+int Solution::dominantIndex(vector<int> &nums) {
+    int locOfMaxValue = 0;
+
+    for(int i=1; i<nums.size(); i++){
+        if(nums[i]>nums[locOfMaxValue]){
+            locOfMaxValue = i;
+        }
+    }
+
+    for(int i=0; i<nums.size(); i++){
+        if(i!=locOfMaxValue){
+            if(nums[locOfMaxValue]<2*nums[i]){
+                return -1;
+            }
+        }
+    }
+
+    return locOfMaxValue;
+}
+
+/*
+ * 1493 递推算法
+ * */
+int Solution::longestSubarray(vector<int> &nums) {
+    int a=0,b=0,max=0;
+
+    for(int num : nums){
+        if(num==1){
+            a++;
+            b++;
+            if(a>max){
+                max = a;
+            }
+        }else{
+            a=b;
+            b=0;
+        }
+    }
+
+    if(max==nums.size()){
+        max--;
+    }
+
+    return max;
+}
+
+/*
+ * 424 滑动窗口
+ * */
+int Solution::characterReplacement(string s, int k) {
+    int *count = new int[26];
+    for(int i=0; i<26; i++){
+        count[i] = 0;
+    }
+
+    int left,right,maxCount;
+    left = 0;
+    maxCount = 0;
+    for(right=0; right<s.size(); right++){
+        int index = s[right]-'A';
+        count[index]++;
+
+        if(count[index]>maxCount){
+            maxCount = count[index];
+        }
+
+        if(right-left+1>maxCount+k){        // 窗口右滑条件
+            count[s[left]-'A']--;
+            left++;
+        }
+    }
+
+    return k+maxCount>s.size()?(int)s.size():k+maxCount;
+}
+
+/*
+ * 832 数组操作
+ * */
+vector<vector<int>> Solution::flipAndInvertImage(vector<vector<int>> &A) {
+    vector<vector<int>> result = vector<vector<int>>();
+
+    for(int i=0; i<A.size(); i++){
+        vector<int> vec = vector<int>(A[0].size());
+        for(int j=0; j<(A[0].size()+1)/2; j++){
+            vec[j] = 1 - A[i][A[0].size()-1-j];
+            vec[A[0].size()-1-j] = 1 - A[i][j];
+        }
+        result.push_back(vec);
+    }
+
+    return result;
+}
+
+/*
+ * 剑指 offer 59 - I 滑动窗口
+ * */
+vector<int> Solution::maxSlidingWindow(vector<int> &nums, int k) {
+    vector<int> result = vector<int>();
+
+    if(nums.empty()||!k){
+        return result;
+    }
+    if(k==1){
+        return nums;
+    }
+
+    int max = nums[0];
+    for(int i=1; i<k; i++){
+        if(nums[i]>max){
+            max = nums[i];
+        }
+    }
+    result.push_back(max);
+
+    for(int i=0; i<nums.size()-k; i++){
+        if(nums[k+i]>max){
+            max = nums[k+i];
+        }else if(max==nums[i]){
+            int maxPart = nums[i+1];
+            for(int j=i+2; j<=k+i; j++){
+                if(nums[j]>maxPart){
+                    maxPart = nums[j];
+                }
+            }
+            max = maxPart;
+        }
+        result.push_back(max);
+    }
+
+    return result;
+}
+
+/*
+ * 1458 动态规划
+ * */
+int Solution::maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
+    int size1 = nums1.size(),size2 = nums2.size();
+    int **cache = new int*[size1+1];
+    for(int i=0; i<=size1; i++){
+        cache[i] = new int[size2+1];
+
+        for(int j=0; j<=size2; j++){
+            cache[i][j] = -1e8;
+        }
+    }
+
+    for(int i=1; i<=size1; i++){
+        for(int j=1; j<=size2; j++){
+            cache[i][j] = nums1[i-1]*nums2[j-1];
+
+            cache[i][j] = max(cache[i][j],cache[i-1][j-1]+nums1[i-1]*nums2[j-1]);
+
+            cache[i][j] = max(cache[i][j],cache[i][j-1]);
+
+            cache[i][j] = max(cache[i][j],cache[i-1][j]);
+
+            cache[i][j] = max(cache[i][j],cache[i-1][j-1]);
+        }
+    }
+
+    return cache[size1][size2];
+}
+
+/*
+ * 279 动态规划
+ * */
+int Solution::numSquares(int n) {
+    int *dp = new int[n+1]();
+
+    for(int i=1; i<=n; i++){
+        dp[i] = i;
+
+        for(int j=1; i-j*j>=0; j++){
+            dp[i] = min(dp[i],dp[i-j*j]+1);
+        }
+    }
+
+    return dp[n];
+}
+
+/*
+ * 1432 数组操作
+ * */
+int Solution::maxScore(vector<int> &cardPoints, int k) {
+    int maxScore=0;
+
+    for(int i=0; i<k; i++){
+        maxScore += cardPoints[i];
+    }
+
+    if(cardPoints.size()==k){
+        return maxScore;
+    }
+
+    int cacheScore = maxScore;
+    for(int i=1; i<=k; i++){
+        int tempScore = cacheScore - cardPoints[k-i] + cardPoints[cardPoints.size()-i];
+        maxScore = tempScore>maxScore?tempScore:maxScore;
+        cacheScore = tempScore;
+    }
+
+    return maxScore;
+}
+
+
+
 /*
  * 474 动态规划
  * */
@@ -377,14 +1247,15 @@ string Solution::getSmallestString(int n, int k) {
 /*
  * 1338 贪心算法
  * */
-int minSetSize(vector<int>& arr){
+int Solution::minSetSize(vector<int> &arr) {
     map<int,int> freq;
     for(int num:arr){
         freq[num]++;
     }
     vector<int> orderFreq;
-    for(map<int,int>::iterator it; it!=freq.end(); it++){
-        orderFreq.push_back(it->second);
+    orderFreq.reserve(freq.size());
+    for(auto & it : freq){
+        orderFreq.push_back(it.second);
     }
 
     sort(orderFreq.begin(), orderFreq.end(), greater<int>());
@@ -393,9 +1264,33 @@ int minSetSize(vector<int>& arr){
     for(int cnt:orderFreq){
         count+=cnt;
         answer+=1;
-        if (cnt * 2 >= arr.size()) {
+        if (count * 2 >= arr.size()) {
             break;
         }
     }
     return answer;
+}
+
+/*
+ * 1403 贪心算法
+ * */
+vector<int> Solution::minSubsequence(vector<int> &nums) {
+    int sum=0, sonSum=0, ptr=0;
+    vector<int> result;
+
+    for(int num:nums){
+        sum+=num;
+    }
+
+    quickSortReverse(nums, 0, nums.size()-1);
+
+    sonSum = 0;
+    while(sonSum<=sum){
+        sonSum += nums[ptr];
+        sum -= nums[ptr];
+        result.push_back(nums[ptr]);
+        ptr++;
+    }
+
+    return result;
 }
