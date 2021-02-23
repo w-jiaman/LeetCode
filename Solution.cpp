@@ -1294,3 +1294,45 @@ vector<int> Solution::minSubsequence(vector<int> &nums) {
 
     return result;
 }
+
+/*
+ * 435 贪心算法
+ * */
+int Solution::eraseOverlapIntervals(vector<vector<int>>& intervals){
+    if(intervals.empty()){
+        return 0;
+    }
+
+    eraseOverlapIntervalsQuickSort(intervals, 0, intervals.size()-1);
+
+
+}
+
+/*
+ * 435 helper
+ * */
+void Solution::eraseOverlapIntervalsQuickSort(vector<vector<int>> &intervals, int left, int right) {
+    vector<int> pivot = intervals[left];
+    int leftRecord = left;
+    int rightRecord = right;
+
+    while(left<right){
+        while(intervals[right][1]>pivot[1] && left<right){
+            right--;
+        }
+        if(left<right){
+            intervals[left] = intervals[right];
+            left++;
+        }
+
+        while(intervals[left][1]<pivot[1] && left<right){
+            left++;
+        }
+        if(left<right){
+            intervals[right] = intervals[left];
+            right--;
+        }
+    }
+
+    intervals
+}

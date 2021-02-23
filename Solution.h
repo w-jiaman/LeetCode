@@ -66,6 +66,7 @@ public:
     static string getSmallestString(int n, int k);      // 1663 贪心算法
     static int minSetSize(vector<int>& arr);           // 1338 贪心算法
     static vector<int> minSubsequence(vector<int>& nums);   // 1403 贪心算法
+    static int eraseOverlapIntervals(vector<vector<int>>& intervals);   // 435 贪心算法
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
@@ -76,6 +77,7 @@ private:
     static void count0And1(string& str, int* result);      // 474 helper
     static ListNode* mergeKLists(vector<ListNode*>& lists, int beg, int end);       // 23 helper
     static ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);       // 23 helper
+    static void eraseOverlapIntervalsQuickSort(vector<vector<int>>& intervals, int left, int right);// 435 helper
 };
 
 
