@@ -9,9 +9,7 @@ int main() {
             {1,2},
             {2,3},
             {3,4},
-            {-100,-2},
-            {5,7}
+            {4,5}
     };
-
-    cout << Solution::eraseOverlapIntervals(it) << endl;
+    cout << Solution::findMinArrowShots(it) << endl;
 }

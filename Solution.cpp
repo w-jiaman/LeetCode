@@ -1353,3 +1353,65 @@ void Solution::eraseOverlapIntervalsQuickSort(vector<vector<int>> &intervals, in
         eraseOverlapIntervalsQuickSort(intervals, right+1, rightRecord);
     }
 }
+
+/*
+ * 452 贪心算法
+ * */
+int Solution::findMinArrowShots(vector<vector<int>> &points) {
+    if (points.size() <= 1) {
+        return points.size();
+    }
+
+    findMinArrowShotsQuickSort(points, 0, points.size() - 1);
+
+    int i=0;
+    int result = 0;
+    while(i<points.size()){
+        result++;
+
+        int j=i+1;
+        while(j<points.size()&&points[j][0]<=points[i][1]){
+            j++;
+        }
+
+
+        i = j;
+    }
+
+    return result;
+}
+
+/*
+ * 452 helper
+ * */
+void Solution::findMinArrowShotsQuickSort(vector<vector<int>> &points, int left, int right) {
+    vector<int> pivot = points[left];
+    int leftRecord = left, rightRecord = right;
+
+    while(left<right){
+        while(points[right][1]>pivot[1] && left<right){
+            right--;
+        }
+        if(left<right){
+            points[left] = points[right];
+            left++;
+        }
+
+        while(points[left][1]<pivot[1] && left<right){
+            left++;
+        }
+        if(left<right){
+            points[right] = points[left];
+            right--;
+        }
+    }
+
+    points[left] = pivot;
+
+    if(left>leftRecord+1){
+        findMinArrowShotsQuickSort(points, leftRecord, left-1);
+    }
+    if(right+1<rightRecord){
+        findMinArrowShotsQuickSort(points, right+1, rightRecord);
+    }
+}
