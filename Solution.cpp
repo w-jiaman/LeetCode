@@ -1299,13 +1299,23 @@ vector<int> Solution::minSubsequence(vector<int> &nums) {
  * 435 贪心算法
  * */
 int Solution::eraseOverlapIntervals(vector<vector<int>>& intervals){
-    if(intervals.empty()){
+    if(intervals.size()<=1){
         return 0;
     }
 
     eraseOverlapIntervalsQuickSort(intervals, 0, intervals.size()-1);
 
+    int right=INT_MIN;
+    int result=0;
+    for(auto & interval : intervals){
+        if(interval[0]<right){
+            result++;
+        }else{
+            right=interval[1];
+        }
+    }
 
+    return result;
 }
 
 /*
@@ -1334,5 +1344,12 @@ void Solution::eraseOverlapIntervalsQuickSort(vector<vector<int>> &intervals, in
         }
     }
 
-    intervals
+    intervals[left] = pivot;
+
+    if(left>leftRecord+1){
+        eraseOverlapIntervalsQuickSort(intervals, leftRecord, left-1);
+    }
+    if(right<rightRecord-1){
+        eraseOverlapIntervalsQuickSort(intervals, right+1, rightRecord);
+    }
 }
