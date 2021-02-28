@@ -5,11 +5,6 @@
 using namespace std;
 
 int main() {
-    vector<vector<int>> it = {
-            {1,2},
-            {2,3},
-            {3,4},
-            {4,5}
-    };
-    cout << Solution::findMinArrowShots(it) << endl;
+    vector<int> it = {0,0};
+    cout << Solution::wiggleMaxLength3(it) << endl;
 }

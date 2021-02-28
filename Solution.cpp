@@ -1415,3 +1415,116 @@ void Solution::findMinArrowShotsQuickSort(vector<vector<int>> &points, int left,
         findMinArrowShotsQuickSort(points, right+1, rightRecord);
     }
 }
+
+/*
+ * [376.摆动序列] 动态规划
+ * */
+int Solution::wiggleMaxLength(vector<int> &nums) {
+    if(nums.size()<=1){
+        return nums.size();
+    }
+
+    int* up = new int[nums.size()];
+    int *down = new int[nums.size()];
+
+    up[0] = 1;
+    down[0] = 1;
+
+    for(int i=1; i<nums.size(); i++){
+        if (nums[i]>nums[i-1]){
+            if(down[i-1]+1>up[i-1]){
+                up[i] = down[i-1] + 1;
+            }else{
+                up[i] = up[i-1];
+            }
+            down[i] = down[i-1];
+        }else if(nums[i]<nums[i-1]){
+            if(up[i-1]+1>down[i-1]){
+                down[i] = up[i-1] + 1;
+            }else{
+                down[i] = down[i-1];
+            }
+            up[i] = up[i-1];
+        }else{
+            up[i] = up[i-1];
+            down[i] = down[i-1];
+        }
+    }
+
+    int result;
+    if(down[nums.size()-1]>up[nums.size()-1]){
+        result = down[nums.size()-1];
+    }else{
+        result = up[nums.size()-1];
+    }
+
+    delete []up;
+    delete []down;
+
+    return result;
+}
+
+int Solution::wiggleMaxLength2(vector<int> &nums) {
+    if(nums.size()<=1)
+        return nums.size();
+
+    int up = 1;
+    int down = 1;
+
+    for(int i=1; i<nums.size(); i++){
+        if (nums[i]>nums[i-1]){
+            if(down+1>up){
+                up = down + 1;
+            }
+        }else if(nums[i]<nums[i-1]){
+            if(up+1>down){
+                down = up + 1;
+            }
+        }
+    }
+
+    if(up>down){
+        return up;
+    }else{
+        return down;
+    }
+}
+
+/*
+ * [376.摆动序列] 贪心算法
+ * */
+int Solution::wiggleMaxLength3(vector<int> &nums) {
+    if(nums.size()<=1)
+        return nums.size();
+
+    bool isUp = false;
+    int beginLoc = 1;
+    while(beginLoc<nums.size() && nums[0]==nums[beginLoc]){
+        beginLoc++;
+    }
+
+    if(beginLoc<nums.size() && nums[beginLoc]>nums[0]){
+        isUp = true;
+    }
+
+    int result = 1;
+    if(beginLoc<nums.size()){
+        result=2;
+    }
+
+    for(int i=beginLoc; i<nums.size(); i++){
+        if(nums[i]<nums[i-1]){
+            if(isUp){
+                result++;
+                isUp = false;
+            }
+        }else if(nums[i]>nums[i-1]){
+            if(!isUp){
+                result++;
+                isUp = true;
+            }
+        }
+    }
+
+    return result;
+}
