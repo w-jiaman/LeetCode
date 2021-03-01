@@ -255,7 +255,7 @@ vector<vector<int>> Solution::threeSum(vector<int> &nums) {
 }
 
 /*
- * 17 回溯算法
+ * [17.电话号码的字母组合] 回溯算法
  * */
 vector<string> Solution::letterCombinations(string digits) {
     // 使用string数组来表示数字与字母间的对应关系
@@ -301,7 +301,7 @@ vector<string> Solution::letterCombinations(string digits) {
 }
 
 /*
- * 6 几何
+ * [6.Z字形变换] 几何
  * */
 string Solution::convert(string s, int numRows) {
     if(numRows==1){
@@ -329,7 +329,7 @@ string Solution::convert(string s, int numRows) {
 }
 
 /*
- * 11 双指针
+ * [11.盛最多水的容器] 双指针
  * */
 int Solution::maxArea(vector<int> &height) {
     int start = 0;
@@ -348,7 +348,7 @@ int Solution::maxArea(vector<int> &height) {
 }
 
 /*
- * 167 数组操作
+ * [167.两数之和II-输入有序数组]
  * */
 vector<int> Solution::twoSum2(vector<int>& numbers, int target) {
     int start = 0;
@@ -367,7 +367,7 @@ vector<int> Solution::twoSum2(vector<int>& numbers, int target) {
 }
 
 /*
- * 104 深度优先搜索
+ * [104.二叉树的最大深度] 深度优先搜索
  * */
 int Solution::maxDepth(TreeNode *root) {
     if(root== nullptr){
@@ -377,7 +377,7 @@ int Solution::maxDepth(TreeNode *root) {
 }
 
 /*
- * 867 数组操作
+ * [867.转置矩阵] 数组操作
  * */
 vector<vector<int>> Solution::transpose(vector<vector<int>> &A) {
     vector<vector<int>> result = vector<vector<int>>();
@@ -445,7 +445,7 @@ int Solution::trap(vector<int> &height) {
 }
 
 /*
- * 1535 数组操作
+ * [1535.找出数组游戏的赢家] 数组操作
  * */
 int Solution::getWinner(vector<int>& arr, int k){
     int ptr=1,times=0;

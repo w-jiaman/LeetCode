@@ -35,15 +35,15 @@ public:
     static int removeElement(vector<int>& nums, int val);   // [27.移除元素] 数组操作
     static int threeSumClosest(vector<int>& nums, int target);  // [16.最接近的三数之和] 双指针
     static vector<vector<int>> threeSum(vector<int>& nums);     // [15.三数之和] 双指针
-    static vector<string> letterCombinations(string digits);    // 17 回溯算法
-    static string convert(string s, int numRows);           // 6 几何
-    static int maxArea(vector<int>& height);       // 11 双指针
-    static vector<int> twoSum2(vector<int>& numbers, int target);    // 167 数组操作
-    static int maxDepth(TreeNode* root);        // 104 深度优先搜索
-    static vector<vector<int>> transpose(vector<vector<int>>& A);    // 867 数组操作
+    static vector<string> letterCombinations(string digits);    // [17.电话号码的字母组合] 回溯算法
+    static string convert(string s, int numRows);           // [6.Z字形变换] 几何
+    static int maxArea(vector<int>& height);       // [11.盛最多水的容器] 双指针
+    static vector<int> twoSum2(vector<int>& numbers, int target);    // [167.两数之和II-输入有序数组] 数组操作
+    static int maxDepth(TreeNode* root);        // [104.二叉树的最大深度] 深度优先搜索
+    static vector<vector<int>> transpose(vector<vector<int>>& A);    // [867.转置矩阵] 数组操作
     static int majorityElement(vector<int>& nums);       // 面试题 17.10 数组操作
     static int trap(vector<int>& height);   // 面试题 17.21 双指针
-    static int getWinner(vector<int>& arr, int k);      // 1535 数组操作
+    static int getWinner(vector<int>& arr, int k);      // [1535.找出数组游戏的赢家] 数组操作
     static vector<int> sortedSquares(vector<int>& nums);   // 977 排序
     static bool exist(vector<vector<char>>& board, string word);    // 79 深度优先搜索
     static void solve(vector<vector<char>>& board);         // 130 深度优先搜索
