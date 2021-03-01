@@ -144,7 +144,7 @@ void Solution::quickSortReverse(vector<int>& arr, int left, int right) {
 
 
 /*
- * 1 暴力法
+ * [1.两数之和] 暴力法
  * */
 vector<int> Solution::twoSum(vector<int> &nums, int target) {
     vector<int> answer ;
@@ -162,7 +162,7 @@ vector<int> Solution::twoSum(vector<int> &nums, int target) {
 }
 
 /*
- * 27 数组操作
+ * [27.移除元素] 数组操作
  * */
 int Solution::removeElement(vector<int> &nums, int val) {
     int pivot = nums.size() - 1;
@@ -181,7 +181,7 @@ int Solution::removeElement(vector<int> &nums, int val) {
 }
 
 /*
- * 16 双指针
+ * [16.最接近的三数之和] 双指针
  * */
 int Solution::threeSumClosest(vector<int> &nums, int target) {
     int len = nums.size();
@@ -211,7 +211,7 @@ int Solution::threeSumClosest(vector<int> &nums, int target) {
 }
 
 /*
- * 15 双指针
+ * [15.三数之和] 双指针
  * */
 vector<vector<int>> Solution::threeSum(vector<int> &nums) {
     int len = nums.size();
@@ -1299,13 +1299,23 @@ vector<int> Solution::minSubsequence(vector<int> &nums) {
  * 435 贪心算法
  * */
 int Solution::eraseOverlapIntervals(vector<vector<int>>& intervals){
-    if(intervals.empty()){
+    if(intervals.size()<=1){
         return 0;
     }
 
     eraseOverlapIntervalsQuickSort(intervals, 0, intervals.size()-1);
 
+    int right=INT_MIN;
+    int result=0;
+    for(auto & interval : intervals){
+        if(interval[0]<right){
+            result++;
+        }else{
+            right=interval[1];
+        }
+    }
 
+    return result;
 }
 
 /*
@@ -1334,5 +1344,215 @@ void Solution::eraseOverlapIntervalsQuickSort(vector<vector<int>> &intervals, in
         }
     }
 
-    intervals
+    intervals[left] = pivot;
+
+    if(left>leftRecord+1){
+        eraseOverlapIntervalsQuickSort(intervals, leftRecord, left-1);
+    }
+    if(right<rightRecord-1){
+        eraseOverlapIntervalsQuickSort(intervals, right+1, rightRecord);
+    }
 }
+
+/*
+ * 452 贪心算法
+ * */
+int Solution::findMinArrowShots(vector<vector<int>> &points) {
+    if (points.size() <= 1) {
+        return points.size();
+    }
+
+    findMinArrowShotsQuickSort(points, 0, points.size() - 1);
+
+    int i=0;
+    int result = 0;
+    while(i<points.size()){
+        result++;
+
+        int j=i+1;
+        while(j<points.size()&&points[j][0]<=points[i][1]){
+            j++;
+        }
+
+
+        i = j;
+    }
+
+    return result;
+}
+
+/*
+ * 452 helper
+ * */
+void Solution::findMinArrowShotsQuickSort(vector<vector<int>> &points, int left, int right) {
+    vector<int> pivot = points[left];
+    int leftRecord = left, rightRecord = right;
+
+    while(left<right){
+        while(points[right][1]>pivot[1] && left<right){
+            right--;
+        }
+        if(left<right){
+            points[left] = points[right];
+            left++;
+        }
+
+        while(points[left][1]<pivot[1] && left<right){
+            left++;
+        }
+        if(left<right){
+            points[right] = points[left];
+            right--;
+        }
+    }
+
+    points[left] = pivot;
+
+    if(left>leftRecord+1){
+        findMinArrowShotsQuickSort(points, leftRecord, left-1);
+    }
+    if(right+1<rightRecord){
+        findMinArrowShotsQuickSort(points, right+1, rightRecord);
+    }
+}
+
+/*
+ * [376.摆动序列] 动态规划
+ * */
+int Solution::wiggleMaxLength(vector<int> &nums) {
+    if(nums.size()<=1){
+        return nums.size();
+    }
+
+    int* up = new int[nums.size()];
+    int *down = new int[nums.size()];
+
+    up[0] = 1;
+    down[0] = 1;
+
+    for(int i=1; i<nums.size(); i++){
+        if (nums[i]>nums[i-1]){
+            if(down[i-1]+1>up[i-1]){
+                up[i] = down[i-1] + 1;
+            }else{
+                up[i] = up[i-1];
+            }
+            down[i] = down[i-1];
+        }else if(nums[i]<nums[i-1]){
+            if(up[i-1]+1>down[i-1]){
+                down[i] = up[i-1] + 1;
+            }else{
+                down[i] = down[i-1];
+            }
+            up[i] = up[i-1];
+        }else{
+            up[i] = up[i-1];
+            down[i] = down[i-1];
+        }
+    }
+
+    int result;
+    if(down[nums.size()-1]>up[nums.size()-1]){
+        result = down[nums.size()-1];
+    }else{
+        result = up[nums.size()-1];
+    }
+
+    delete []up;
+    delete []down;
+
+    return result;
+}
+
+int Solution::wiggleMaxLength2(vector<int> &nums) {
+    if(nums.size()<=1)
+        return nums.size();
+
+    int up = 1;
+    int down = 1;
+
+    for(int i=1; i<nums.size(); i++){
+        if (nums[i]>nums[i-1]){
+            if(down+1>up){
+                up = down + 1;
+            }
+        }else if(nums[i]<nums[i-1]){
+            if(up+1>down){
+                down = up + 1;
+            }
+        }
+    }
+
+    if(up>down){
+        return up;
+    }else{
+        return down;
+    }
+}
+
+/*
+ * [376.摆动序列] 贪心算法
+ * */
+int Solution::wiggleMaxLength3(vector<int> &nums) {
+    if(nums.size()<=1)
+        return nums.size();
+
+    bool isUp = false;
+    int beginLoc = 1;
+    while(beginLoc<nums.size() && nums[0]==nums[beginLoc]){
+        beginLoc++;
+    }
+
+    if(beginLoc<nums.size() && nums[beginLoc]>nums[0]){
+        isUp = true;
+    }
+
+    int result = 1;
+    if(beginLoc<nums.size()){
+        result=2;
+    }
+
+    for(int i=beginLoc; i<nums.size(); i++){
+        if(nums[i]<nums[i-1]){
+            if(isUp){
+                result++;
+                isUp = false;
+            }
+        }else if(nums[i]>nums[i-1]){
+            if(!isUp){
+                result++;
+                isUp = true;
+            }
+        }
+    }
+
+    return result;
+}
+
+/*
+ * [25.K 个一组翻转链表] 链表
+ * */
+ListNode *Solution::reverseKGroup(ListNode *head, int k) {
+    int count = 0;
+    ListNode newHead;
+    newHead.next = head;
+    ListNode *leftHead,*right=&newHead;
+    while(right->next){
+        right=right->next;
+        count++;
+        if(count==k){
+            ListNode* tmp = leftHead->next;
+            leftHead->next = r
+        }
+        if()
+        if(count==0){
+            left = right;
+            count++;
+            break;
+        }
+
+    }
+
+    return nullptr;
+}
+

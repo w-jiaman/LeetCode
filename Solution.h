@@ -10,7 +10,7 @@
 
 using namespace std;
 
-/* 链表节点 2 23 */
+/* 链表节点 2 23 25 */
 struct ListNode {
     int val;
     ListNode *next;
@@ -31,10 +31,10 @@ struct TreeNode {
 
 class Solution {
 public:
-    static vector<int> twoSum(vector<int>& nums, int target);       // 1 暴力法
-    static int removeElement(vector<int>& nums, int val);   // 27 数组操作
-    static int threeSumClosest(vector<int>& nums, int target);  // 16 双指针
-    static vector<vector<int>> threeSum(vector<int>& nums);     // 15 双指针
+    static vector<int> twoSum(vector<int>& nums, int target);       // [1.两数之和] 暴力法
+    static int removeElement(vector<int>& nums, int val);   // [27.移除元素] 数组操作
+    static int threeSumClosest(vector<int>& nums, int target);  // [16.最接近的三数之和] 双指针
+    static vector<vector<int>> threeSum(vector<int>& nums);     // [15.三数之和] 双指针
     static vector<string> letterCombinations(string digits);    // 17 回溯算法
     static string convert(string s, int numRows);           // 6 几何
     static int maxArea(vector<int>& height);       // 11 双指针
@@ -67,6 +67,11 @@ public:
     static int minSetSize(vector<int>& arr);           // 1338 贪心算法
     static vector<int> minSubsequence(vector<int>& nums);   // 1403 贪心算法
     static int eraseOverlapIntervals(vector<vector<int>>& intervals);   // 435 贪心算法
+    static int findMinArrowShots(vector<vector<int>>& points);      // 452 贪心算法
+    static int wiggleMaxLength(vector<int>& nums);         // [376.摆动序列] 动态规划
+    static int wiggleMaxLength2(vector<int>& nums);
+    static int wiggleMaxLength3(vector<int>& nums);     // [376.摆动序列] 贪心算法
+    static ListNode* reverseKGroup(ListNode* head, int k);  // [25.K 个一组翻转链表] 链表
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
@@ -78,6 +83,7 @@ private:
     static ListNode* mergeKLists(vector<ListNode*>& lists, int beg, int end);       // 23 helper
     static ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);       // 23 helper
     static void eraseOverlapIntervalsQuickSort(vector<vector<int>>& intervals, int left, int right);// 435 helper
+    static void findMinArrowShotsQuickSort(vector<vector<int>>& points, int left, int right);    // 452 helper
 };
 
 
