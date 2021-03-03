@@ -84,6 +84,7 @@ private:
     static ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);       // 23 helper
     static void eraseOverlapIntervalsQuickSort(vector<vector<int>>& intervals, int left, int right);// 435 helper
     static void findMinArrowShotsQuickSort(vector<vector<int>>& points, int left, int right);    // 452 helper
+    static void reverseKGroupHelper(ListNode* head, ListNode* tail);      // 25 helper
 };
 
 

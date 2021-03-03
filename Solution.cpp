@@ -1536,23 +1536,35 @@ ListNode *Solution::reverseKGroup(ListNode *head, int k) {
     int count = 0;
     ListNode newHead;
     newHead.next = head;
-    ListNode *leftHead,*right=&newHead;
-    while(right->next){
-        right=right->next;
+    ListNode *prev=&newHead, *current=head;
+    while(current->next){
+        current=current->next;
         count++;
         if(count==k){
-            ListNode* tmp = leftHead->next;
-            leftHead->next = r
+            ListNode* next = current->next, *prevTmp=prev->next;
+            reverseKGroupHelper(prev->next, current);
+            prev->next->next = next;
+            prev->next = current;
+            current = next;
+            prev = prevTmp;
+            count=0;
         }
-        if()
-        if(count==0){
-            left = right;
-            count++;
-            break;
-        }
-
     }
 
     return nullptr;
+}
+
+/*
+ * 25 helper
+ * */
+void Solution::reverseKGroupHelper(ListNode *head, ListNode *tail) {
+    // 能调用这个函数的都是 k!=1 的情况，所以 head 与 tail 不会指向同一个节点
+    ListNode* current=head->next, *prev=head, *next;
+    while(current!=tail->next){
+        next = current->next;
+        current->next=prev;
+        prev=current;
+        current=next;
+    }
 }
 
