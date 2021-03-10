@@ -144,7 +144,7 @@ void Solution::quickSortReverse(vector<int>& arr, int left, int right) {
 
 
 /*
- * 1 暴力法
+ * [1.两数之和] 暴力法
  * */
 vector<int> Solution::twoSum(vector<int> &nums, int target) {
     vector<int> answer ;
@@ -162,7 +162,7 @@ vector<int> Solution::twoSum(vector<int> &nums, int target) {
 }
 
 /*
- * 27 数组操作
+ * [27.移除元素] 数组操作
  * */
 int Solution::removeElement(vector<int> &nums, int val) {
     int pivot = nums.size() - 1;
@@ -181,7 +181,7 @@ int Solution::removeElement(vector<int> &nums, int val) {
 }
 
 /*
- * 16 双指针
+ * [16.最接近的三数之和] 双指针
  * */
 int Solution::threeSumClosest(vector<int> &nums, int target) {
     int len = nums.size();
@@ -211,7 +211,7 @@ int Solution::threeSumClosest(vector<int> &nums, int target) {
 }
 
 /*
- * 15 双指针
+ * [15.三数之和] 双指针
  * */
 vector<vector<int>> Solution::threeSum(vector<int> &nums) {
     int len = nums.size();
@@ -255,7 +255,7 @@ vector<vector<int>> Solution::threeSum(vector<int> &nums) {
 }
 
 /*
- * 17 回溯算法
+ * [17.电话号码的字母组合] 回溯算法
  * */
 vector<string> Solution::letterCombinations(string digits) {
     // 使用string数组来表示数字与字母间的对应关系
@@ -301,7 +301,7 @@ vector<string> Solution::letterCombinations(string digits) {
 }
 
 /*
- * 6 几何
+ * [6.Z字形变换] 几何
  * */
 string Solution::convert(string s, int numRows) {
     if(numRows==1){
@@ -329,7 +329,7 @@ string Solution::convert(string s, int numRows) {
 }
 
 /*
- * 11 双指针
+ * [11.盛最多水的容器] 双指针
  * */
 int Solution::maxArea(vector<int> &height) {
     int start = 0;
@@ -348,7 +348,7 @@ int Solution::maxArea(vector<int> &height) {
 }
 
 /*
- * 167 数组操作
+ * [167.两数之和II-输入有序数组]
  * */
 vector<int> Solution::twoSum2(vector<int>& numbers, int target) {
     int start = 0;
@@ -367,7 +367,7 @@ vector<int> Solution::twoSum2(vector<int>& numbers, int target) {
 }
 
 /*
- * 104 深度优先搜索
+ * [104.二叉树的最大深度] 深度优先搜索
  * */
 int Solution::maxDepth(TreeNode *root) {
     if(root== nullptr){
@@ -377,7 +377,7 @@ int Solution::maxDepth(TreeNode *root) {
 }
 
 /*
- * 867 数组操作
+ * [867.转置矩阵] 数组操作
  * */
 vector<vector<int>> Solution::transpose(vector<vector<int>> &A) {
     vector<vector<int>> result = vector<vector<int>>();
@@ -445,7 +445,7 @@ int Solution::trap(vector<int> &height) {
 }
 
 /*
- * 1535 数组操作
+ * [1535.找出数组游戏的赢家] 数组操作
  * */
 int Solution::getWinner(vector<int>& arr, int k){
     int ptr=1,times=0;
@@ -1528,3 +1528,46 @@ int Solution::wiggleMaxLength3(vector<int> &nums) {
 
     return result;
 }
+
+/*
+ * [25.K 个一组翻转链表] 链表
+ * */
+ListNode *Solution::reverseKGroup(ListNode *head, int k) {
+    int count = 0;
+    ListNode newHead;
+    newHead.next = head;
+    ListNode *prev=&newHead, *current=head;
+    while(current->next){
+        current=current->next;
+        count++;
+        if(count==k){
+            ListNode* next = current->next, *prevTmp=prev->next;
+            reverseKGroupHelper(prev->next, current);
+            prev->next->next = next;
+            prev->next = current;
+            current = next;
+            prev = prevTmp;
+            count=0;
+        }
+    }
+
+    return nullptr;
+}
+
+/*
+ * 25 helper
+ * */
+void Solution::reverseKGroupHelper(ListNode *head, ListNode *tail) {
+    // 能调用这个函数的都是 k!=1 的情况，所以 head 与 tail 不会指向同一个节点
+    ListNode* current=head->next, *prev=head, *next;
+    while(current!=tail->next){
+        next = current->next;
+        current->next=prev;
+        prev=current;
+        current=next;
+    }
+}
+
+/*
+ *
+ * */

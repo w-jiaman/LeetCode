@@ -5,12 +5,13 @@
 #ifndef LEETCODE_SOLUTION_H
 #define LEETCODE_SOLUTION_H
 
+#include "map"
 #include "string"
 #include "vector"
 
 using namespace std;
 
-/* 链表节点 2 23 */
+/* 链表节点 2 23 25 */
 struct ListNode {
     int val;
     ListNode *next;
@@ -29,21 +30,113 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+/* 双向链表节点 146 */
+struct DListNode {
+    int key, value;
+    DListNode *prev, *next;
+    DListNode(): key(0), value(0), prev(nullptr), next(nullptr){}
+};
+
+/* [146.LRU缓存机制] LRU */
+class LRUCache {
+private:
+    std::map<int, DListNode*> cache;
+    DListNode* head;
+    DListNode* tail;
+    int size;
+    int capacity;
+    void move2Head(DListNode* node){    // 将当前指向的节点换到第一个
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+        node->next = head->next;
+        node->prev = head;
+        head->next->prev = node;
+        head->next = node;
+    }
+    void addNode(DListNode* node){     // 将新键的节点添加到双向链表头
+        node->next = head->next;
+        node->prev = head;
+        head->next->prev = node;
+        head->next = node;
+    }
+    int removeTail(){   // 移除最后一个节点，且返回 key
+        DListNode* lastOne = tail->prev;
+        int key = lastOne->key;
+
+        lastOne->prev->next = tail;
+        tail->prev = lastOne->prev;
+
+        delete lastOne;
+        return key;
+    }
+public:
+    explicit LRUCache(int _capacity){
+        capacity = _capacity;
+        size = 0;
+        head = new DListNode();
+        tail = new DListNode();
+        head->next = tail;
+        tail->prev = head;
+    }
+    ~LRUCache(){
+        DListNode* ptr = head;
+        while(ptr){
+            DListNode* tmp = ptr->next;
+            delete ptr;
+            ptr = tmp;
+        }
+    }
+    void put(int key, int value){
+        if(cache.find(key)==cache.end()){
+            // 若不存在，新建 [关键字-值]
+            DListNode* newNode = new DListNode();
+            newNode->key = key;
+            newNode->value = value;
+            cache[key] = newNode;
+            addNode(newNode);
+
+            // 检查容量，若此时 size==capacity，则移除最后一个节点，否则递增size
+            if(size==capacity){
+                cache.erase(removeTail());
+            }else{
+                size++;
+            }
+        }else{
+            // 若存在，覆盖原值，更新缓存
+            DListNode* node = cache[key];
+            node->value = value;
+            move2Head(node);
+        }
+
+    }
+    int get(int key){
+        // 若不存在，返回 -1
+        if(cache.find(key)==cache.end()){
+            return -1;
+        }
+
+        // 若存在，获取双向链表节点指针，并将该节点移到第一个
+        DListNode* node = cache[key];
+        move2Head(node);
+        return node->value;
+    }
+};
+
 class Solution {
 public:
-    static vector<int> twoSum(vector<int>& nums, int target);       // 1 暴力法
-    static int removeElement(vector<int>& nums, int val);   // 27 数组操作
-    static int threeSumClosest(vector<int>& nums, int target);  // 16 双指针
-    static vector<vector<int>> threeSum(vector<int>& nums);     // 15 双指针
-    static vector<string> letterCombinations(string digits);    // 17 回溯算法
-    static string convert(string s, int numRows);           // 6 几何
-    static int maxArea(vector<int>& height);       // 11 双指针
-    static vector<int> twoSum2(vector<int>& numbers, int target);    // 167 数组操作
-    static int maxDepth(TreeNode* root);        // 104 深度优先搜索
-    static vector<vector<int>> transpose(vector<vector<int>>& A);    // 867 数组操作
+    static vector<int> twoSum(vector<int>& nums, int target);       // [1.两数之和] 暴力法
+    static int removeElement(vector<int>& nums, int val);   // [27.移除元素] 数组操作
+    static int threeSumClosest(vector<int>& nums, int target);  // [16.最接近的三数之和] 双指针
+    static vector<vector<int>> threeSum(vector<int>& nums);     // [15.三数之和] 双指针
+    static vector<string> letterCombinations(string digits);    // [17.电话号码的字母组合] 回溯算法
+    static string convert(string s, int numRows);           // [6.Z字形变换] 几何
+    static int maxArea(vector<int>& height);       // [11.盛最多水的容器] 双指针
+    static vector<int> twoSum2(vector<int>& numbers, int target);    // [167.两数之和II-输入有序数组] 数组操作
+    static int maxDepth(TreeNode* root);        // [104.二叉树的最大深度] 深度优先搜索
+    static vector<vector<int>> transpose(vector<vector<int>>& A);    // [867.转置矩阵] 数组操作
     static int majorityElement(vector<int>& nums);       // 面试题 17.10 数组操作
     static int trap(vector<int>& height);   // 面试题 17.21 双指针
-    static int getWinner(vector<int>& arr, int k);      // 1535 数组操作
+    static int getWinner(vector<int>& arr, int k);      // [1535.找出数组游戏的赢家] 数组操作
     static vector<int> sortedSquares(vector<int>& nums);   // 977 排序
     static bool exist(vector<vector<char>>& board, string word);    // 79 深度优先搜索
     static void solve(vector<vector<char>>& board);         // 130 深度优先搜索
@@ -71,6 +164,7 @@ public:
     static int wiggleMaxLength(vector<int>& nums);         // [376.摆动序列] 动态规划
     static int wiggleMaxLength2(vector<int>& nums);
     static int wiggleMaxLength3(vector<int>& nums);     // [376.摆动序列] 贪心算法
+    static ListNode* reverseKGroup(ListNode* head, int k);  // [25.K 个一组翻转链表] 链表
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
@@ -83,6 +177,7 @@ private:
     static ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);       // 23 helper
     static void eraseOverlapIntervalsQuickSort(vector<vector<int>>& intervals, int left, int right);// 435 helper
     static void findMinArrowShotsQuickSort(vector<vector<int>>& points, int left, int right);    // 452 helper
+    static void reverseKGroupHelper(ListNode* head, ListNode* tail);      // 25 helper
 };
 
 
