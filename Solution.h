@@ -165,6 +165,7 @@ public:
     static int wiggleMaxLength2(vector<int>& nums);
     static int wiggleMaxLength3(vector<int>& nums);     // [376.摆动序列] 贪心算法
     static ListNode* reverseKGroup(ListNode* head, int k);  // [25.K 个一组翻转链表] 链表
+    static int maxProfit(vector<int>& prices);  // [121. 买卖股票的最佳时机] 暴力法
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
