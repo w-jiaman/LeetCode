@@ -8,6 +8,7 @@
 #include "string"
 #include "vector"
 #include "map"
+#include "queue"
 #include "algorithm"
 
 using namespace std;
@@ -470,7 +471,7 @@ int Solution::getWinner(vector<int>& arr, int k){
 }
 
 /*
- * 977 排序
+ * [977.有序数组的平方] 排序
  * */
 vector<int> Solution::sortedSquares(vector<int> &nums) {
     vector<int> result = vector<int>(nums.size());
@@ -495,7 +496,7 @@ vector<int> Solution::sortedSquares(vector<int> &nums) {
 }
 
 /*
- * 79 深度优先搜索
+ * [79.单词搜索] 深度优先搜索
  * */
 bool Solution::exist(vector<vector<char>> &board, string word) {
     bool flag = false;
@@ -583,7 +584,7 @@ bool Solution::existCore(vector<vector<char>> &board, int i, int j, string word,
 }
 
 /*
- * 130 深度优先搜索
+ * [130.被围绕的区域] 深度优先搜索
  * */
 void Solution::solve(vector<vector<char>> &board) {
     if(board.empty()||board.size()==1){
@@ -659,7 +660,7 @@ void Solution::solveCore(vector<vector<char>> &board, int i, int j, bool** isAro
 }
 
 /*
- * 442 哈希算法
+ * [442.数组中重复的数据] 哈希算法
  * */
 vector<int> Solution::findDuplicates(vector<int> &nums) {
     vector<int> ret = vector<int>();
@@ -674,7 +675,7 @@ vector<int> Solution::findDuplicates(vector<int> &nums) {
 }
 
 /*
- * 747 暴力法
+ * [747.至少是其他数字两倍的最大数] 暴力法
  * */
 int Solution::dominantIndex(vector<int> &nums) {
     int locOfMaxValue = 0;
@@ -697,7 +698,7 @@ int Solution::dominantIndex(vector<int> &nums) {
 }
 
 /*
- * 1493 递推算法
+ * [1493.删掉一个元素以后全为 1 的最长子数组] 递推算法
  * */
 int Solution::longestSubarray(vector<int> &nums) {
     int a=0,b=0,max=0;
@@ -723,7 +724,7 @@ int Solution::longestSubarray(vector<int> &nums) {
 }
 
 /*
- * 424 滑动窗口
+ * [424.替换后的最长重复字符] 滑动窗口
  * */
 int Solution::characterReplacement(string s, int k) {
     int *count = new int[26];
@@ -752,7 +753,7 @@ int Solution::characterReplacement(string s, int k) {
 }
 
 /*
- * 832 数组操作
+ * [832.翻转图像] 数组操作
  * */
 vector<vector<int>> Solution::flipAndInvertImage(vector<vector<int>> &A) {
     vector<vector<int>> result = vector<vector<int>>();
@@ -809,7 +810,7 @@ vector<int> Solution::maxSlidingWindow(vector<int> &nums, int k) {
 }
 
 /*
- * 1458 动态规划
+ * [1458.两个子序列的最大点积] 动态规划
  * */
 int Solution::maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
     int size1 = nums1.size(),size2 = nums2.size();
@@ -840,7 +841,7 @@ int Solution::maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
 }
 
 /*
- * 279 动态规划
+ * [279.完全平方数] 动态规划
  * */
 int Solution::numSquares(int n) {
     int *dp = new int[n+1]();
@@ -857,7 +858,7 @@ int Solution::numSquares(int n) {
 }
 
 /*
- * 1432 数组操作
+ * [1423.可获得的最大点数] 数组操作
  * */
 int Solution::maxScore(vector<int> &cardPoints, int k) {
     int maxScore=0;
@@ -883,7 +884,7 @@ int Solution::maxScore(vector<int> &cardPoints, int k) {
 
 
 /*
- * 474 动态规划
+ * [474.一和零] 动态规划
  * */
 int Solution::findMaxForm(vector<string>& strs, int m, int n){
     int ***dpCache = new int** [2];
@@ -944,7 +945,7 @@ void Solution::count0And1(string &str, int* result) {
 }
 
 /*
- * 300 动态规划
+ * [300.最长递增子序列] 动态规划
  * */
 int Solution::lengthOfLIS(vector<int> &nums) {
     int *dp = new int[nums.size()];
@@ -971,7 +972,7 @@ int Solution::lengthOfLIS(vector<int> &nums) {
 }
 
 /*
- * 978 滑动窗口
+ * [978.最长湍流子数组] 滑动窗口
  * */
 int Solution::maxTurbulenceSize(vector<int> &arr) {
     if(arr.size()==1||(arr.size()==2&&arr[0]==arr[1])){
@@ -1026,7 +1027,7 @@ int Solution::maxTurbulenceSize(vector<int> &arr) {
 }
 
 /*
- * 940 动态规划
+ * [940.不同的子序列 II] 动态规划
  * */
 int Solution::distinctSubseqII(const string& S) {
     int* dp = new int[S.size()+1];
@@ -1065,7 +1066,7 @@ int Solution::distinctSubseqII(const string& S) {
 }
 
 /*
- * 2 链表
+ * [2.两数相加] 链表
  * */
 ListNode *Solution::addTwoNumbers(ListNode *l1, ListNode *l2) {
     // 遍历两个链表，找出较长的链表
@@ -1159,7 +1160,7 @@ ListNode *Solution::addTwoNumbers(ListNode *l1, ListNode *l2) {
 }
 
 /*
- * 23 链表
+ * [23.合并K个升序链表] 链表
  * */
 ListNode* Solution::mergeKLists(vector<ListNode *> &lists) {
     return mergeKLists(lists, 0, lists.size()-1);
@@ -1199,7 +1200,7 @@ ListNode* Solution::mergeTwoLists(ListNode* list1, ListNode* list2) {
 }
 
 /*
- * 1578 贪心算法
+ * [1578.避免重复字母的最小删除成本] 贪心算法
  * */
 int Solution::minCost(string s, vector<int> &cost) {
     int left=0, right=0;
@@ -1227,7 +1228,7 @@ int Solution::minCost(string s, vector<int> &cost) {
 }
 
 /*
- * 1663 贪心算法
+ * [1663.具有给定数值的最小字符串] 贪心算法
  * */
 string Solution::getSmallestString(int n, int k) {
     string result;
@@ -1245,7 +1246,7 @@ string Solution::getSmallestString(int n, int k) {
 }
 
 /*
- * 1338 贪心算法
+ * [1338.数组大小减半] 贪心算法
  * */
 int Solution::minSetSize(vector<int> &arr) {
     map<int,int> freq;
@@ -1272,7 +1273,7 @@ int Solution::minSetSize(vector<int> &arr) {
 }
 
 /*
- * 1403 贪心算法
+ * [1403.非递增顺序的最小子序列] 贪心算法
  * */
 vector<int> Solution::minSubsequence(vector<int> &nums) {
     int sum=0, sonSum=0, ptr=0;
@@ -1296,7 +1297,7 @@ vector<int> Solution::minSubsequence(vector<int> &nums) {
 }
 
 /*
- * 435 贪心算法
+ * [435.无重叠区间] 贪心算法
  * */
 int Solution::eraseOverlapIntervals(vector<vector<int>>& intervals){
     if(intervals.size()<=1){
@@ -1355,7 +1356,7 @@ void Solution::eraseOverlapIntervalsQuickSort(vector<vector<int>> &intervals, in
 }
 
 /*
- * 452 贪心算法
+ * [452.用最少数量的箭引爆气球] 贪心算法
  * */
 int Solution::findMinArrowShots(vector<vector<int>> &points) {
     if (points.size() <= 1) {
@@ -1569,7 +1570,7 @@ void Solution::reverseKGroupHelper(ListNode *head, ListNode *tail) {
 }
 
 /*
- * [121. 买卖股票的最佳时机] 暴力法
+ * [121.买卖股票的最佳时机] 遍历
  * */
 int Solution::maxProfit(vector<int> &prices) {
     int min=prices[0], result=0;
@@ -1581,6 +1582,75 @@ int Solution::maxProfit(vector<int> &prices) {
                 result = prices[i] - min;
             }
         }
+    }
+
+    return result;
+}
+
+/*
+ * [102.二叉树的层序遍历] 广度优先搜索
+ * */
+vector<vector<int>> Solution::levelOrder(TreeNode *root) {
+    vector<vector<int>> result;
+
+    if(!root)
+        return result;
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while(!q.empty()){
+        vector<int> currentLevel;
+        int currentSize = q.size();
+        for(int i=0; i<currentSize; i++){
+            TreeNode* node = q.front();
+            q.pop();
+            currentLevel.push_back(node->val);
+            if(node->left)
+                q.push(node->left);
+            if(node->right)
+                q.push(node->right);
+        }
+        result.push_back(currentLevel);
+    }
+
+    return result;
+}
+
+/*
+ * [103.二叉树的锯齿形层序遍历] 广度优先搜索
+ * */
+vector<vector<int>> zigzagLevelOrder(TreeNode* root){
+    vector<vector<int>> result;
+
+    if(!root)
+        return result;
+
+    bool flag=0;        // flag 为 0 时正序输出
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while(!q.empty()){
+        deque<int> currentLevel;
+        int currentSize = q.size();
+        for(int i=0; i<currentSize; i++){
+            TreeNode* node = q.front();
+            q.pop();
+
+            if(flag){
+                currentLevel.push_front(node->val);
+            }else{
+                currentLevel.push_back(node->val);
+            }
+
+            if(node->left)
+                q.push(node->left);
+            if(node->right)
+                q.push(node->right);
+        }
+        result.emplace_back(vector<int>{currentLevel.begin(), currentLevel.end()});
+        flag = !flag;
     }
 
     return result;

@@ -20,7 +20,7 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-/* 二叉树结点 104 */
+/* 二叉树结点 104 102 103 */
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -137,35 +137,37 @@ public:
     static int majorityElement(vector<int>& nums);       // 面试题 17.10 数组操作
     static int trap(vector<int>& height);   // 面试题 17.21 双指针
     static int getWinner(vector<int>& arr, int k);      // [1535.找出数组游戏的赢家] 数组操作
-    static vector<int> sortedSquares(vector<int>& nums);   // 977 排序
-    static bool exist(vector<vector<char>>& board, string word);    // 79 深度优先搜索
-    static void solve(vector<vector<char>>& board);         // 130 深度优先搜索
-    static vector<int> findDuplicates(vector<int>& nums);   // 442 哈希算法
-    static int dominantIndex(vector<int>& nums);        // 747 暴力法
-    static int longestSubarray(vector<int>& nums);      // 1493 递推算法
-    static int characterReplacement(string s, int k);   // 424 滑动窗口
-    static vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A);  // 832 数组操作
+    static vector<int> sortedSquares(vector<int>& nums);   // [977.有序数组的平方] 排序
+    static bool exist(vector<vector<char>>& board, string word);    // [79.单词搜索] 深度优先搜索
+    static void solve(vector<vector<char>>& board);         // [130.被围绕的区域] 深度优先搜索
+    static vector<int> findDuplicates(vector<int>& nums);   // [442.数组中重复的数据] 哈希算法
+    static int dominantIndex(vector<int>& nums);        // [747.至少是其他数字两倍的最大数] 暴力法
+    static int longestSubarray(vector<int>& nums);      // [1493.删掉一个元素以后全为 1 的最长子数组] 递推算法
+    static int characterReplacement(string s, int k);   // [424.替换后的最长重复字符] 滑动窗口
+    static vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A);  // [832.翻转图像] 数组操作
     static vector<int> maxSlidingWindow(vector<int>& nums, int k);      // 剑指 offer 59 - I 滑动窗口
-    static int maxScore(vector<int>& cardPoints, int k);        // 1432 数组操作
-    static int maxDotProduct(vector<int>& nums1, vector<int>& nums2);   // 1458 动态规划
-    static int numSquares(int n);       // 279 动态规划
-    static int findMaxForm(vector<string>& strs, int m, int n);        // 474 动态规划
-    static int lengthOfLIS(vector<int>& nums);         // 300 动态规划
-    static int maxTurbulenceSize(vector<int>& arr);        // 978 滑动窗口
-    static int distinctSubseqII(const string& S);     // 940 动态规划
-    static ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);    // 2 链表
-    static ListNode* mergeKLists(vector<ListNode*>& lists);       // 23 链表
-    static int minCost(string s, vector<int>& cost);       // 1578 贪心算法
-    static string getSmallestString(int n, int k);      // 1663 贪心算法
-    static int minSetSize(vector<int>& arr);           // 1338 贪心算法
-    static vector<int> minSubsequence(vector<int>& nums);   // 1403 贪心算法
-    static int eraseOverlapIntervals(vector<vector<int>>& intervals);   // 435 贪心算法
-    static int findMinArrowShots(vector<vector<int>>& points);      // 452 贪心算法
+    static int maxScore(vector<int>& cardPoints, int k);        // [1423.可获得的最大点数] 数组操作
+    static int maxDotProduct(vector<int>& nums1, vector<int>& nums2);   // [1458.两个子序列的最大点积] 动态规划
+    static int numSquares(int n);       // [279.完全平方数] 动态规划
+    static int findMaxForm(vector<string>& strs, int m, int n);        // [474.一和零] 动态规划
+    static int lengthOfLIS(vector<int>& nums);         // [300.最长递增子序列] 动态规划
+    static int maxTurbulenceSize(vector<int>& arr);        // [978.最长湍流子数组] 滑动窗口
+    static int distinctSubseqII(const string& S);     // [940.不同的子序列 II] 动态规划
+    static ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);    // [2.两数相加] 链表
+    static ListNode* mergeKLists(vector<ListNode*>& lists);       // [23.合并K个升序链表] 链表
+    static int minCost(string s, vector<int>& cost);       // [1578.避免重复字母的最小删除成本] 贪心算法
+    static string getSmallestString(int n, int k);      // [1663.具有给定数值的最小字符串] 贪心算法
+    static int minSetSize(vector<int>& arr);           // [1338.数组大小减半] 贪心算法
+    static vector<int> minSubsequence(vector<int>& nums);   // [1403.非递增顺序的最小子序列] 贪心算法
+    static int eraseOverlapIntervals(vector<vector<int>>& intervals);   // [435.无重叠区间] 贪心算法
+    static int findMinArrowShots(vector<vector<int>>& points);      // [452.用最少数量的箭引爆气球] 贪心算法
     static int wiggleMaxLength(vector<int>& nums);         // [376.摆动序列] 动态规划
     static int wiggleMaxLength2(vector<int>& nums);
     static int wiggleMaxLength3(vector<int>& nums);     // [376.摆动序列] 贪心算法
     static ListNode* reverseKGroup(ListNode* head, int k);  // [25.K 个一组翻转链表] 链表
-    static int maxProfit(vector<int>& prices);  // [121. 买卖股票的最佳时机] 暴力法
+    static int maxProfit(vector<int>& prices);  // [121.买卖股票的最佳时机] 遍历
+    static vector<vector<int>> levelOrder(TreeNode* root);     // [102.二叉树的层序遍历] 广度优先搜索
+    static vector<vector<int>> zigzagLevelOrder(TreeNode* root);      // [103.二叉树的锯齿形层序遍历] 广度优先搜索
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
