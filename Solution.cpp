@@ -1620,7 +1620,7 @@ vector<vector<int>> Solution::levelOrder(TreeNode *root) {
 /*
  * [103.二叉树的锯齿形层序遍历] 广度优先搜索
  * */
-vector<vector<int>> zigzagLevelOrder(TreeNode* root){
+vector<vector<int>> Solution::zigzagLevelOrder(TreeNode *root) {
     vector<vector<int>> result;
 
     if(!root)
@@ -1655,3 +1655,46 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root){
 
     return result;
 }
+
+/*
+ * [206.反转链表] 链表
+ * */
+ListNode *Solution::reverseList(ListNode *head) {
+    // 迭代法
+    if(!head)
+        return head;
+
+    ListNode *current = head->next, *prev=head, *next;
+
+    while(current){   // 当前节点为最后一个节点时退出循环
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    head->next = nullptr;
+
+    return prev;
+}
+
+ListNode *Solution::reverseList2(ListNode *head) {
+    // 递归法
+    if(!head)
+        return head;
+
+    return reverseList2Helper(head, nullptr);
+}
+
+/*
+ * 206 helper
+ * */
+ListNode* Solution::reverseList2Helper(ListNode *node, ListNode *prev) {
+    ListNode* next = node->next;
+    node->next = prev;
+    if(next)
+        return reverseList2Helper(next, node);
+    else
+        return node;
+}
+
+

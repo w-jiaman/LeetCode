@@ -11,7 +11,7 @@
 
 using namespace std;
 
-/* 链表节点 2 23 25 */
+/* 链表节点 2 23 25 206 */
 struct ListNode {
     int val;
     ListNode *next;
@@ -168,6 +168,8 @@ public:
     static int maxProfit(vector<int>& prices);  // [121.买卖股票的最佳时机] 遍历
     static vector<vector<int>> levelOrder(TreeNode* root);     // [102.二叉树的层序遍历] 广度优先搜索
     static vector<vector<int>> zigzagLevelOrder(TreeNode* root);      // [103.二叉树的锯齿形层序遍历] 广度优先搜索
+    static ListNode* reverseList(ListNode* head);          // [206.反转链表] 链表
+    static ListNode* reverseList2(ListNode* head);
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
@@ -181,6 +183,7 @@ private:
     static void eraseOverlapIntervalsQuickSort(vector<vector<int>>& intervals, int left, int right);// 435 helper
     static void findMinArrowShotsQuickSort(vector<vector<int>>& points, int left, int right);    // 452 helper
     static void reverseKGroupHelper(ListNode* head, ListNode* tail);      // 25 helper
+    static ListNode* reverseList2Helper(ListNode* node, ListNode* prev);      // 206 helper
 };
 
 
