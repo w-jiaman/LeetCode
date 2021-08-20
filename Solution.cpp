@@ -9,7 +9,9 @@
 #include "vector"
 #include "map"
 #include "queue"
+#include "stack"
 #include "algorithm"
+#include "math.h"
 
 using namespace std;
 
@@ -1697,4 +1699,236 @@ ListNode* Solution::reverseList2Helper(ListNode *node, ListNode *prev) {
         return node;
 }
 
+/*
+ * [144.二叉树的前序遍历] 栈
+ * */
+vector<int> Solution::preorderTraversal(TreeNode* root){
+    vector<int> result;
 
+    if(!root)
+        return result;
+
+    stack<TreeNode*> st;
+    st.push(root);
+
+    while(!st.empty()){
+        TreeNode* cur = st.top();
+        st.pop();
+        result.push_back(cur->val);
+
+        if(cur->right)
+            st.push(cur->right);
+        if(cur->left)
+            st.push(cur->left);
+    }
+
+    return result;
+}
+
+/*
+ * [224.基本计算器] 栈
+ * */
+int Solution::calculate(string s){
+    stack<int> op;
+    int result = 0;
+
+    op.push(1);
+    int sign = 1;
+
+    for(string::size_type i=0; i<s.size(); i++){
+        switch (s[i]) {
+            case '(':
+                op.push(sign);
+                break;
+            case ')':
+                op.pop();
+                break;
+            case '+':
+                sign = op.top();
+                break;
+            case '-':
+                sign = -op.top();
+                break;
+            case ' ':
+                break;
+            default:
+                int num = 0;
+                while (s[i] >= '0' && s[i] <= '9') {
+                    num*=10;
+                    num += s[i] - '0';
+                    i++;
+                }
+                result += (sign * num);
+                i--;
+        }
+    }
+
+    return result;
+}
+
+/*
+ * [198.打家劫舍] 动态规划
+ * */
+int Solution::rob(vector<int>& nums){
+    int *dpCache = new int[nums.size()];
+    dpCache[0] = nums[0];
+    if(nums.size()>1)
+        dpCache[1] = nums[0]>nums[1] ? nums[0] : nums[1];
+
+    for(int i=2; i<nums.size(); i++){
+        if(nums[i] + dpCache[i-2] > dpCache[i-1]){
+            dpCache[i] = nums[i] + dpCache[i-2];
+        }else{
+            dpCache[i] = dpCache[i-1];
+        }
+    }
+
+    return dpCache[nums.size()-1];
+}
+
+/*
+ * 110 helper
+ * */
+bool Solution::isBalancedHelper(TreeNode* root, int &depth){
+    if(!root){
+        depth=-1;
+        return true;
+    }
+
+    int leftDepth=-1, rightDepth=-1;
+    if(!isBalancedHelper(root->left, leftDepth) or !isBalancedHelper(root->right, rightDepth)){
+        return false;
+    }
+
+    if(abs(leftDepth-rightDepth)>1){
+        return false;
+    }
+
+    if(leftDepth>rightDepth){
+        depth = leftDepth+1;
+    }else{
+        depth = rightDepth+1;
+    }
+
+    return true;
+}
+
+/*
+ * [110.平衡二叉树] 深度优先搜索
+ * */
+bool Solution::isBalanced(TreeNode* root){
+    if(!root)
+        return true;
+
+    int a;
+    return isBalancedHelper(root, a);
+}
+
+/*
+ * [142.环形链表 II] 快慢指针
+ * */
+ListNode* Solution::detectCycle(ListNode *head){
+    ListNode *slow=head, *fast = head;
+
+    while(fast){
+        slow = slow->next;
+        fast = fast->next;
+        if(fast){
+            fast = fast->next;
+            if(fast==slow){
+                break;
+            }
+        }
+    }
+
+    if(!fast){
+        return nullptr;
+    }else{
+        ListNode* result=head;
+        while(result!=slow){
+            result = result->next;
+            slow = slow->next;
+        }
+        return result;
+    }
+}
+
+/*
+ * [剑指 Offer 22. 链表中倒数第k个节点] 链表操作
+ * */
+ListNode* Solution::getKthFromEnd(ListNode* head, int k){
+    ListNode *fast=head, *slow=head;
+    while(fast && k>1){
+        fast = fast->next;
+        k--;
+    }
+
+    while(fast){
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    return slow;
+}
+
+/*
+ * [1382.将二叉搜索树变平衡] 深度优先搜索
+ * */
+TreeNode *Solution::balanceBST(TreeNode *root) {
+    vector<TreeNode*> inorderVec;
+    balanceBSTHelper(root, inorderVec);
+    return balanceBSTHelper(inorderVec, 0, inorderVec.size()-1);
+}
+
+/*
+ * 1382 helper 获取 BST 中序遍历的结果
+ * */
+void Solution::balanceBSTHelper(TreeNode *root, vector<TreeNode*> &inorderVec) {
+    if(root){
+        balanceBSTHelper(root->left, inorderVec);
+        inorderVec.push_back(root);
+        balanceBSTHelper(root->right, inorderVec);
+    }
+}
+
+
+/*
+ * 1382 helper 递归构造平衡二叉树
+ * */
+TreeNode* Solution::balanceBSTHelper(vector<TreeNode*> &inorderVec, int leftPos, int rightPos) {
+    int pos = (leftPos+rightPos)/2;
+    TreeNode* node = inorderVec[(leftPos+rightPos)/2];
+    if(pos>leftPos)
+        node->left = balanceBSTHelper(inorderVec, leftPos, pos-1);
+    else
+        node->left = nullptr;
+    if(pos<rightPos)
+        node->right = balanceBSTHelper(inorderVec, pos+1, rightPos);
+    else
+        node->right = nullptr;
+    return node;
+}
+
+/*
+ * [108.将有序数组转换为二叉搜索树] 深度优先搜索
+ * */
+TreeNode* Solution::sortedArrayToBST(vector<int> &nums) {
+    return sortedArrayToBSTHelper(nums, 0, nums.size()-1);
+}
+
+/*
+ * 108 helper
+ * */
+TreeNode* Solution::sortedArrayToBSTHelper(vector<int>& nums, int leftPos, int rightPos){
+    int pos = (leftPos+rightPos)/2;
+    TreeNode* node = new TreeNode(nums[pos]);
+    if(pos>leftPos)
+        node->left = sortedArrayToBSTHelper(nums, leftPos, pos-1);
+    else
+        node->left = nullptr;
+    if(pos<rightPos)
+        node->right = sortedArrayToBSTHelper(nums, pos+1, rightPos);
+    else
+        node->right = nullptr;
+    return node;
+}

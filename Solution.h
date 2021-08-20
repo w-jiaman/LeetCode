@@ -11,7 +11,7 @@
 
 using namespace std;
 
-/* 链表节点 2 23 25 206 */
+/* 链表节点 2 23 25 206 剑指 Offer 22 142 */
 struct ListNode {
     int val;
     ListNode *next;
@@ -20,7 +20,7 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-/* 二叉树结点 104 102 103 */
+/* 二叉树结点 104 102 103 144 1382 108 */
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -145,7 +145,7 @@ public:
     static int longestSubarray(vector<int>& nums);      // [1493.删掉一个元素以后全为 1 的最长子数组] 递推算法
     static int characterReplacement(string s, int k);   // [424.替换后的最长重复字符] 滑动窗口
     static vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A);  // [832.翻转图像] 数组操作
-    static vector<int> maxSlidingWindow(vector<int>& nums, int k);      // 剑指 offer 59 - I 滑动窗口
+    static vector<int> maxSlidingWindow(vector<int>& nums, int k);      // 剑指 Offer 59 - I 滑动窗口
     static int maxScore(vector<int>& cardPoints, int k);        // [1423.可获得的最大点数] 数组操作
     static int maxDotProduct(vector<int>& nums1, vector<int>& nums2);   // [1458.两个子序列的最大点积] 动态规划
     static int numSquares(int n);       // [279.完全平方数] 动态规划
@@ -170,6 +170,14 @@ public:
     static vector<vector<int>> zigzagLevelOrder(TreeNode* root);      // [103.二叉树的锯齿形层序遍历] 广度优先搜索
     static ListNode* reverseList(ListNode* head);          // [206.反转链表] 链表
     static ListNode* reverseList2(ListNode* head);
+    static vector<int> preorderTraversal(TreeNode* root);      // [144.二叉树的前序遍历] 栈
+    static int calculate(string s);     // [224.基本计算器] 栈
+    static int rob(vector<int>& nums);  // [198.打家劫舍] 动态规划
+    static bool isBalanced(TreeNode* root);    // [110.平衡二叉树] 深度优先搜索
+    static ListNode *detectCycle(ListNode *head);   // [142.环形链表 II] 快慢指针
+    static ListNode* getKthFromEnd(ListNode* head, int k);  // [剑指 Offer 22.链表中倒数第k个节点] 链表操作
+    static TreeNode* balanceBST(TreeNode* root);    // [1382.将二叉搜索树变平衡] 深度优先搜索
+    static TreeNode* sortedArrayToBST(vector<int>& nums);   // [108.将有序数组转换为二叉搜索树] 深度优先搜索
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
@@ -184,6 +192,10 @@ private:
     static void findMinArrowShotsQuickSort(vector<vector<int>>& points, int left, int right);    // 452 helper
     static void reverseKGroupHelper(ListNode* head, ListNode* tail);      // 25 helper
     static ListNode* reverseList2Helper(ListNode* node, ListNode* prev);      // 206 helper
+    static bool isBalancedHelper(TreeNode* root, int &depth);    // 110 helper
+    static void balanceBSTHelper(TreeNode* root, vector<TreeNode*>& inorderVec);   // 1382 helper 获取 BST 中序遍历的结果
+    static TreeNode* balanceBSTHelper(vector<TreeNode*>& inorderVec, int leftPos, int rightPos);      // 1382 helper 递归构造平衡二叉树
+    static TreeNode* sortedArrayToBSTHelper(vector<int>& nums, int leftPos, int rightPos);    // 108 helper
 };
 
 
