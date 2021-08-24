@@ -178,6 +178,8 @@ public:
     static ListNode* getKthFromEnd(ListNode* head, int k);  // [剑指 Offer 22.链表中倒数第k个节点] 链表操作
     static TreeNode* balanceBST(TreeNode* root);    // [1382.将二叉搜索树变平衡] 深度优先搜索
     static TreeNode* sortedArrayToBST(vector<int>& nums);   // [108.将有序数组转换为二叉搜索树] 深度优先搜索
+    static vector<int> dailyTemperatures(vector<int>& temperatures);  // [739.每日温度] 单调栈
+    static int longestConsecutive(vector<int>& nums);       // [128.最长连续序列] 哈希查找
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排

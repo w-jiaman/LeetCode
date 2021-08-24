@@ -11,6 +11,8 @@
 #include "queue"
 #include "stack"
 #include "algorithm"
+#include "set"
+#include "unordered_set"
 #include "math.h"
 
 using namespace std;
@@ -1931,4 +1933,49 @@ TreeNode* Solution::sortedArrayToBSTHelper(vector<int>& nums, int leftPos, int r
     else
         node->right = nullptr;
     return node;
+}
+
+/*
+ * [739.每日温度] 单调栈
+ * */
+vector<int> Solution::dailyTemperatures(vector<int>& temperatures){
+    vector<int> result(temperatures.size(), 0);
+    stack<int> sta;
+    for(int i=0; i<temperatures.size(); i++){
+        while(!sta.empty() && temperatures[sta.top()] < temperatures[i%temperatures.size()]){
+            result[sta.top()] = i-sta.top();
+            sta.pop();
+        }
+        sta.push(i%temperatures.size());
+    }
+    while(!sta.empty()){
+        result[sta.top()] = 0;
+        sta.pop();
+    }
+    return result;
+}
+
+/*
+ * [128.最长连续序列] 哈希查找
+ * */
+int Solution::longestConsecutive(vector<int> &nums) {
+    unordered_set<int> s;
+    for(int n:nums){
+        s.insert(n);
+    }
+
+    int longest = 0;
+    for(int num: s){
+        if(s.find(num-1) != s.end())
+            continue;
+
+        int count=1;
+        while(s.find(++num) != s.end())
+            count++;
+
+        if(count>longest)
+            longest = count;
+    }
+
+    return longest;
 }
