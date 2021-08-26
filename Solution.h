@@ -180,6 +180,7 @@ public:
     static TreeNode* sortedArrayToBST(vector<int>& nums);   // [108.将有序数组转换为二叉搜索树] 深度优先搜索
     static vector<int> dailyTemperatures(vector<int>& temperatures);  // [739.每日温度] 单调栈
     static int longestConsecutive(vector<int>& nums);       // [128.最长连续序列] 哈希查找
+    static int firstMissingPositive(vector<int>& nums);     // [41.缺失的第一个正数] 哈希 位运算
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
