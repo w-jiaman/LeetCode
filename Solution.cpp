@@ -2004,3 +2004,13 @@ int Solution::firstMissingPositive(vector<int> &nums) {
     }
     return n+1;
 }
+
+/*
+ * [165.比较版本号] 字符串操作
+ * */
+int Solution::compareVersion(string version1, string version2) {
+
+
+    return 0;
+}
+

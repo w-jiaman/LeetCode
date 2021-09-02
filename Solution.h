@@ -122,6 +122,26 @@ public:
     }
 };
 
+/* [460.LFU 缓存] LFU*/
+class LFUCache {
+private:
+    const int capacity;
+    unsigned long index = 0;
+public:
+    LFUCache(int capacity) : capacity(capacity) {
+
+    }
+
+    int get(int key) {
+
+    }
+
+    void put(int key, int value) {
+
+    }
+};
+
+
 class Solution {
 public:
     static vector<int> twoSum(vector<int>& nums, int target);       // [1.两数之和] 暴力法
@@ -181,6 +201,7 @@ public:
     static vector<int> dailyTemperatures(vector<int>& temperatures);  // [739.每日温度] 单调栈
     static int longestConsecutive(vector<int>& nums);       // [128.最长连续序列] 哈希查找
     static int firstMissingPositive(vector<int>& nums);     // [41.缺失的第一个正数] 哈希 位运算
+    static int compareVersion(string version1, string version2);       // [165.比较版本号] 字符串操作
 private:
     static void quickSort(int* arr, int left, int right);           // 递增快排
     static void quickSort(vector<int>& arr, int left, int right);    // 递增快排
